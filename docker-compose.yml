@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  graphql:
+    build:
+      context: .
+      args:
+        - NODE_ENV=development
+    ports:
+      - "80:4000"
+    volumes:
+      - .:/usr/src/app
+      - notused:/usr/src/app/node_modules
+
+volumes:
+  notused:
