@@ -12,6 +12,14 @@ const resolvers = {
     info: () => `This is the API of a Hackernews clone`,
 
     feed: () => links,
+
+    link: (parent, args) => {
+      for(let i=0; i<links.length; i++) {
+        if(args.id == links[i].id) {
+          return links[i];
+        }
+      }
+    },
   },
 
   Mutation: {
