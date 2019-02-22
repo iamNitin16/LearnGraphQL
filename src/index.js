@@ -14,7 +14,7 @@ const resolvers = {
     feed: () => links,
 
     link: (parent, args) => {
-      for(let i=0; i<links.length; i++) {
+      for(let i=0; i<idCount; i++) {
         if(args.id == links[i].id) {
           return links[i];
         }
@@ -33,7 +33,15 @@ const resolvers = {
       return link
     },
 
-
+    updateLink: (parent, args) => {
+      for(let i=0; i<idCount; i++) {
+        if(args.id == links[i].id) {
+          links[i].url = args.url
+          links[i].description = args.description
+          return links[i]
+        }
+      }
+    },
   },
 }
 
