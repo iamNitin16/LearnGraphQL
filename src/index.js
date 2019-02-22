@@ -33,12 +33,23 @@ const resolvers = {
       return link
     },
 
-    updateLink: (parent, args) => {
+    updateLink: (parents, args) => {
       for(let i=0; i<idCount; i++) {
         if(args.id == links[i].id) {
           links[i].url = args.url
           links[i].description = args.description
           return links[i]
+        }
+      }
+    },
+
+    deleteLink: (parents, args) => {
+      let link
+      for(let i=0; i<idCount; i++) {
+        if(args.id == links[i].id) {
+          link = links[i]
+          links.splice(i, 1)
+          return link
         }
       }
     },
