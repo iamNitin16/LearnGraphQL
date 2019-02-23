@@ -12,13 +12,14 @@ const {
   MONGO_PASSWORD,
   MONGO_HOSTNAME,
   MONGO_PORT,
-  MONGO_DATABASE_NAME
+  MONGO_DATABASE_NAME,
+  MONGO_AUTH_DATABASE
 } = process.env;
 
 /*
   Opening connection with mongodb database
 */
-const url = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DATABASE_NAME}`;
+const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DATABASE_NAME}?authSource=${MONGO_AUTH_DATABASE}`;
 mongoose.connect(url, { useNewUrlParser: true});
 
 const db = mongoose.connection;

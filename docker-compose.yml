@@ -14,6 +14,7 @@ services:
       - MONGO_HOSTNAME=db
       - MONGO_PORT=27017
       - MONGO_DATABASE_NAME=gpql
+      - MONGO_AUTH_DATABASE=admin
     volumes:
       - .:/usr/src/app
       - notused:/usr/src/app/node_modules
@@ -22,6 +23,9 @@ services:
 
   db:
     image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=toor
     ports:
       - "27017:27017"
     volumes:
