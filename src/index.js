@@ -36,38 +36,31 @@ const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews clone`,
 
-    feed: () => {
-      return Link.find({})
+    feed: async () => {
+      return await Link.find({})
     },
 
-    link: (parent, args) => {
-      return Link.findById(args.id)
+    link: async (parent, args) => {
+      return await Link.findById(args.id)
     },
   },
 
   Mutation: {
-    post: (parents, args) => {
+    post: async (parents, args) => {
       let l;
       const link = new Link({
         url: args.url,
         description: args.description
       });
-      return link.save()
+      return await link.save()
     },
 
-    updateLink: (parents, args) => {
-      return Link.findByIdAndUpdate(args.id, {$set: {url: args.url, description: args.description}}, {new: true})
+    updateLink: async (parents, args) => {
+      return await Link.findByIdAndUpdate(args.id, {$set: {url: args.url, description: args.description}}, {new: true})
     },
 
-    deleteLink: (parents, args) => {
-      let link
-      for(let i=0; i<idCount; i++) {
-        if(args.id == links[i].id) {
-          link = links[i]
-          links.splice(i, 1)
-          return link
-        }
-      }
+    deleteLink: async (parents, args) => {
+      return  await Link.findByIdAndRemove(args.id)
     },
   },
 }
