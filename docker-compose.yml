@@ -22,11 +22,8 @@ services:
 
   db:
     image: mongo
-    restart: always
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=toor
-      - MONGO_INITDB_DATABASE=gpql
+    ports:
+      - "27017:27017"
     volumes:
       - ./data:/data/db
       - configdb:/data/configdb

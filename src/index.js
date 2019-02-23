@@ -1,10 +1,31 @@
 const { GraphQLServer } = require("graphql-yoga");
+const mongoose = require("mongoose");
 
 let links = [{
   id: 'link-0',
   url: 'https://howtographql.com',
   description: "Fullstack Tutorial for GraphQL"
 }]
+
+const {
+  MONGO_USERNAME,
+  MONGO_PASSWORD,
+  MONGO_HOSTNAME,
+  MONGO_PORT,
+  MONGO_DATABASE_NAME
+} = process.env;
+
+/*
+  Opening connection with mongodb database
+*/
+const url = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DATABASE_NAME}`;
+mongoose.connect(url, { useNewUrlParser: true});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+  console.log("Connected to mongodb database");
+});
 
 let idCount = links.length
 const resolvers = {
