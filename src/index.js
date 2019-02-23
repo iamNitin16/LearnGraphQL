@@ -41,11 +41,7 @@ const resolvers = {
     },
 
     link: (parent, args) => {
-      for(let i=0; i<idCount; i++) {
-        if(args.id == links[i].id) {
-          return links[i];
-        }
-      }
+      return Link.findById(args.id)
     },
   },
 
