@@ -28,10 +28,9 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=toor
       - MONGO_INITDB_DATABASE=gpql
     volumes:
-      - data:/data/db
+      - ./data:/data/db
       - configdb:/data/configdb
 
 volumes:
   notused:
-  data:
   configdb:
