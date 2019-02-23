@@ -8,9 +8,30 @@ services:
         - NODE_ENV=development
     ports:
       - "80:4000"
+    environment:
+      - MONGO_USERNAME=root
+      - MONGO_PASSWORD=toor
+      - MONGO_HOSTNAME=db
+      - MONGO_PORT=27017
+      - MONGO_DATABASE_NAME=gpql
     volumes:
       - .:/usr/src/app
       - notused:/usr/src/app/node_modules
+    depends_on:
+      - db
+
+  db:
+    image: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=toor
+      - MONGO_INITDB_DATABASE=gpql
+    volumes:
+      - data:/data/db
+      - configdb:/data/configdb
 
 volumes:
   notused:
+  data:
+  configdb:
