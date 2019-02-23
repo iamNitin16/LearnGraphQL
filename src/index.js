@@ -1,11 +1,14 @@
 const { GraphQLServer } = require("graphql-yoga");
 const mongoose = require("mongoose");
+const Link = require('./Model/link');
 
+/*
 let links = [{
   id: 'link-0',
   url: 'https://howtographql.com',
   description: "Fullstack Tutorial for GraphQL"
 }]
+*/
 
 const {
   MONGO_USERNAME,
@@ -28,12 +31,14 @@ db.once('open', () => {
   console.log("Connected to mongodb database");
 });
 
-let idCount = links.length
+let idCount = 10
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews clone`,
 
-    feed: () => links,
+    feed: () => {
+      return Link.find({})
+    },
 
     link: (parent, args) => {
       for(let i=0; i<idCount; i++) {
@@ -46,13 +51,12 @@ const resolvers = {
 
   Mutation: {
     post: (parents, args) => {
-      const link = {
-        id: `link-${idCount++}`,
-        description: args.description,
+      let l;
+      const link = new Link({
         url: args.url,
-      }
-      links.push(link)
-      return link
+        description: args.description
+      });
+      return link.save()
     },
 
     updateLink: (parents, args) => {
