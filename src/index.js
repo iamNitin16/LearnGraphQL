@@ -56,13 +56,7 @@ const resolvers = {
     },
 
     updateLink: (parents, args) => {
-      for(let i=0; i<idCount; i++) {
-        if(args.id == links[i].id) {
-          links[i].url = args.url
-          links[i].description = args.description
-          return links[i]
-        }
-      }
+      return Link.findByIdAndUpdate(args.id, {$set: {url: args.url, description: args.description}}, {new: true})
     },
 
     deleteLink: (parents, args) => {
