@@ -13,7 +13,8 @@
   "author": "iamNitin16",
   "license": "MIT",
   "dependencies": {
-    "graphql-yoga": "^1.17.4"
+    "graphql-yoga": "^1.17.4",
+    "mongoose": "^5.4.15"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
