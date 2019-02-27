@@ -10,6 +10,14 @@ This repository uses docker development tool `docker-compose` for it's entire de
 
 The only thing you need to install to start hacking on this project is `docker` & `docker-compose`. If you have both these dependencies install then you are good to go.
 
+## Setting ENVIRONMENT_VARIABLE using env file
+
+To set the environment variables according to your development machine, follow the steps below :-
+
+  - Open `dev.env` file in a text editor of your choice.
+  - Replace the environment variables value according to your system configuration and save the file.
+  - Rename the file `dev.env` to `dev.local.env` and you are good to go.
+
 ## Run
 
 To run this project you need to have the `docker-compose` tool installed in your machine.
