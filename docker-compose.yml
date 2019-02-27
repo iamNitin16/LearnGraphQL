@@ -8,13 +8,8 @@ services:
         - NODE_ENV=development
     ports:
       - "80:4000"
-    environment:
-      - MONGO_USERNAME=root
-      - MONGO_PASSWORD=toor
-      - MONGO_HOSTNAME=db
-      - MONGO_PORT=27017
-      - MONGO_DATABASE_NAME=gpql
-      - MONGO_AUTH_DATABASE=admin
+    env_file:
+      - dev.local.env
     volumes:
       - .:/usr/src/app
       - notused:/usr/src/app/node_modules
