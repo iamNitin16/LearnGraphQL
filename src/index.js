@@ -22,13 +22,28 @@ const {
 /*
   Opening connection with mongodb database
 */
+const options = {
+    useNewUrlParser: true,
+    autoReconnect: true,
+    reconnectTries: Number.MAX_VALUE,
+    reconnectInterval: 1000
+};
 const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DATABASE_NAME}?authSource=${MONGO_AUTH_DATABASE}`;
-mongoose.connect(url, { useNewUrlParser: true});
+mongoose.connect(url, options);
 
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+db.on('error', (error) => {
+  console.error('connection error:', error);
+  mongoose.disconnect();
+});
 db.once('open', () => {
   console.log("Connected to mongodb database");
+});
+db.on('disconnected', () => {
+  console.log("MongoDB disconnected");
+  setTimeout(() => {
+    mongoose.connect(url, options)
+  }, 1000);
 });
 
 let idCount = 10
